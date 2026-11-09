@@ -1,0 +1,31 @@
+{
+    "folders": [
+        {
+            "path": "."
+        }
+    ],
+    "settings": {
+        "terminal.integrated.shellIntegration.enabled": false,
+        "clangd.arguments": [
+            "--header-insertion=never"
+        ],
+        "files.autoGuessEncoding": true,
+        "C_Cpp.default.configurationProvider": "cl.eide",
+        "C_Cpp.errorSquiggles": "disabled",
+        "files.associations": {
+            "*.h": "c",
+            "*.c": "c"
+        },
+        "[yaml]": {
+            "editor.insertSpaces": true,
+            "editor.tabSize": 4
+        }
+    },
+    "extensions": {
+        "recommendations": [
+            "cl.eide",
+            "keroc.hex-fmt",
+            "ms-vscode.vscode-serial-monitor"
+        ]
+    }
+}

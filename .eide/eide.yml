@@ -1,0 +1,299 @@
+version: "4.1"
+name: 26-F407-Arm
+type: ARM
+deviceName: STM32F407VETx
+packDir: MDK-ARM/.pack/Keil/STM32F4xx_DFP.3.1.1
+srcDirs: []
+virtualFolder:
+  name: <virtual_root>
+  files: []
+  folders:
+    - name: Application
+      files: []
+      folders:
+        - name: Startup
+          files:
+            - path: MDK-ARM/startup_stm32f407xx.s
+          folders: []
+        - name: Core
+          files:
+            - path: Core/Src/main.c
+            - path: Core/Src/gpio.c
+            - path: Core/Src/freertos.c
+            - path: Core/Src/tim.c
+            - path: Core/Src/usart.c
+            - path: Core/Src/stm32f4xx_it.c
+            - path: Core/Src/stm32f4xx_hal_msp.c
+            - path: Core/Src/stm32f4xx_hal_timebase_tim.c
+            - path: Core/Inc/main.h
+            - path: Core/Inc/gpio.h
+            - path: Core/Inc/tim.h
+            - path: Core/Inc/usart.h
+            - path: Core/Inc/stm32f4xx_it.h
+          folders: []
+        - name: MechanicalArm
+          files: []
+          folders:
+            - name: App
+              files: []
+              folders:
+                - name: Source
+                  files:
+                    - path: App/Src/arm_app.c
+                    - path: App/Src/arm_servo.c
+                    - path: App/Src/arm_motion.c
+                    - path: App/Src/arm_protocol.c
+                    - path: App/Src/arm_puzzle_protocol.c
+                    - path: App/Src/arm_kinematics.c
+                    - path: App/Src/arm_calibration.c
+                    - path: App/Src/arm_puzzle.c
+                    - path: App/Src/arm_comm.c
+                    - path: App/Src/arm_debug_cli.c
+                    - path: App/Src/arm_safety.c
+                    - path: App/Src/arm_buttons.c
+                  folders: []
+                - name: Include
+                  files:
+                    - path: App/Inc/arm_config.h
+                    - path: App/Inc/arm_types.h
+                    - path: App/Inc/arm_app.h
+                    - path: App/Inc/arm_servo.h
+                    - path: App/Inc/arm_motion.h
+                    - path: App/Inc/arm_protocol.h
+                    - path: App/Inc/arm_puzzle_protocol.h
+                    - path: App/Inc/arm_kinematics.h
+                    - path: App/Inc/arm_calibration.h
+                    - path: App/Inc/arm_puzzle.h
+                    - path: App/Inc/arm_comm.h
+                    - path: App/Inc/arm_debug_cli.h
+                    - path: App/Inc/arm_safety.h
+                    - path: App/Inc/arm_buttons.h
+                  folders: []
+            - name: BSP
+              files: []
+              folders:
+                - name: Source
+                  files:
+                    - path: BSP/Src/bsp_servo_pwm.c
+                    - path: BSP/Src/bsp_uart_dma.c
+                    - path: BSP/Src/bsp_debug_uart_dma.c
+                    - path: BSP/Src/bsp_magnet.c
+                    - path: BSP/Src/bsp_puzzle_indicator.c
+                    - path: BSP/Src/bsp_safety_io.c
+                  folders: []
+                - name: Include
+                  files:
+                    - path: BSP/Inc/bsp_servo_pwm.h
+                    - path: BSP/Inc/bsp_uart_common.h
+                    - path: BSP/Inc/bsp_uart_dma.h
+                    - path: BSP/Inc/bsp_debug_uart_dma.h
+                    - path: BSP/Inc/bsp_magnet.h
+                    - path: BSP/Inc/bsp_puzzle_indicator.h
+                    - path: BSP/Inc/bsp_safety_io.h
+                  folders: []
+            - name: Documentation
+              files:
+                - path: docs/机械臂驱动移植与修改指南.md
+                - path: docs/第一问逆解与自动拼图说明.md
+                - path: docs/机械臂按键控制说明.md
+              folders: []
+            - name: Tools
+              files:
+                - path: tools/arm_pc_serial.py
+                - path: tools/puzzle1_uart_test.py
+              folders: []
+    - name: Drivers
+      files: []
+      folders:
+        - name: STM32F4xx_HAL_Driver
+          files:
+            - path: Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c
+            - path: Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c
+            - path: Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c
+            - path: Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c
+            - path: Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c
+            - path: Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c
+            - path: Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c
+            - path: Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c
+            - path: Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c
+            - path: Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c
+            - path: Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c
+            - path: Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c
+            - path: Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c
+            - path: Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c
+            - path: Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c
+            - path: Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c
+          folders: []
+        - name: CMSIS
+          files:
+            - path: Core/Src/system_stm32f4xx.c
+          folders: []
+    - name: Middlewares
+      files: []
+      folders:
+        - name: FreeRTOS
+          files:
+            - path: Middlewares/Third_Party/FreeRTOS/Source/croutine.c
+            - path: Middlewares/Third_Party/FreeRTOS/Source/event_groups.c
+            - path: Middlewares/Third_Party/FreeRTOS/Source/list.c
+            - path: Middlewares/Third_Party/FreeRTOS/Source/queue.c
+            - path: Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c
+            - path: Middlewares/Third_Party/FreeRTOS/Source/tasks.c
+            - path: Middlewares/Third_Party/FreeRTOS/Source/timers.c
+            - path: Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.c
+            - path: Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c
+            - path: Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/port.c
+          folders: []
+dependenceList: []
+outDir: EIDE-build
+miscInfo:
+  uid: f40726a84cbd437aa05e67a4e19d2091
+targets:
+  "26":
+    cppPreprocessAttrs:
+      defineList:
+        - USE_HAL_DRIVER
+        - STM32F407xx
+      incList:
+        - .
+        - Core/Inc
+        - App/Inc
+        - BSP/Inc
+        - Drivers/STM32F4xx_HAL_Driver/Inc
+        - Drivers/STM32F4xx_HAL_Driver/Inc/Legacy
+        - Middlewares/Third_Party/FreeRTOS/Source/include
+        - Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2
+        - Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F
+        - Drivers/CMSIS/Device/ST/STM32F4xx/Include
+        - Drivers/CMSIS/Include
+        - MDK-ARM/.cmsis/include
+        - MDK-ARM/RTE/_26
+      libList: []
+    excludeList: []
+    settings:
+      debugger: cortex-debug
+    toolchain: AC5
+    toolchainConfigMap:
+      AC5:
+        archExtensions: ""
+        cpuType: Cortex-M4
+        floatingPointHardware: single
+        options:
+          version: 4
+          afterBuildTasks: []
+          asm-compiler:
+            defines: []
+          beforeBuildTasks: []
+          c/cpp-compiler:
+            CXX_FLAGS: --diag_suppress=1 --diag_suppress=1295
+            C_FLAGS: --diag_suppress=1 --diag_suppress=1295
+            c99-mode: true
+            one-elf-section-per-function: true
+            optimization: level-3
+            warnings: all-warnings
+          global:
+            output-debug-info: enable
+            use-microLIB: false
+          linker:
+            $outputTaskExcludes:
+              - .bin
+            output-format: elf
+            ro-base: ""
+            rw-base: ""
+            xo-base: ""
+        scatterFilePath: ""
+        storageLayout:
+          RAM:
+            - id: 1
+              isChecked: false
+              mem:
+                size: "0x0"
+                startAddr: "0x0"
+              noInit: false
+              tag: RAM
+            - id: 2
+              isChecked: false
+              mem:
+                size: "0x0"
+                startAddr: "0x0"
+              noInit: false
+              tag: RAM
+            - id: 3
+              isChecked: false
+              mem:
+                size: "0x0"
+                startAddr: "0x0"
+              noInit: false
+              tag: RAM
+            - id: 1
+              isChecked: true
+              mem:
+                size: "0x1C000"
+                startAddr: "0x20000000"
+              noInit: false
+              tag: IRAM
+            - id: 2
+              isChecked: true
+              mem:
+                size: "0x4000"
+                startAddr: "0x2001C000"
+              noInit: false
+              tag: IRAM
+          ROM:
+            - id: 1
+              isChecked: false
+              isStartup: false
+              mem:
+                size: "0x0"
+                startAddr: "0x0"
+              tag: ROM
+            - id: 2
+              isChecked: false
+              isStartup: false
+              mem:
+                size: "0x0"
+                startAddr: "0x0"
+              tag: ROM
+            - id: 3
+              isChecked: false
+              isStartup: false
+              mem:
+                size: "0x0"
+                startAddr: "0x0"
+              tag: ROM
+            - id: 1
+              isChecked: true
+              isStartup: true
+              mem:
+                size: "0x80000"
+                startAddr: "0x08000000"
+              tag: IROM
+            - id: 2
+              isChecked: false
+              isStartup: false
+              mem:
+                size: "0x0"
+                startAddr: "0x0"
+              tag: IROM
+        useCustomScatterFile: false
+    uploadConfigMap:
+      JLink:
+        baseAddr: ""
+        bin: ""
+        cpuInfo:
+          cpuName: "null"
+          vendor: "null"
+        otherCmds: ""
+        proType: 1
+        speed: 8000
+      STLink:
+        address: "0x08000000"
+        bin: ""
+        elFile: None
+        optionBytes: .eide/26.st.option.bytes.ini
+        otherCmds: ""
+        proType: SWD
+        resetMode: default
+        runAfterProgram: true
+        speed: 4000
+    uploader: STLink

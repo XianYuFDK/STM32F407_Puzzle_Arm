@@ -1,0 +1,33 @@
+# 统一行尾，避免 Windows 工作区与仓库之间反复出现“整文件改动”
+* text=auto eol=lf
+
+# 明确按文本处理、保持 LF 的工程与文档文件
+*.c      text eol=lf
+*.h      text eol=lf
+*.s      text eol=lf
+*.md     text eol=lf
+*.py     text eol=lf
+*.json   text eol=lf
+*.yml    text eol=lf
+*.yaml   text eol=lf
+*.ioc    text eol=lf
+*.uvprojx text eol=lf
+*.uvoptx  text eol=lf
+*.code-workspace text eol=lf
+.gitignore text eol=lf
+.gitattributes text eol=lf
+.gitmodules text eol=lf
+
+# 明确按二进制处理
+*.docx   binary
+*.pdf    binary
+*.png    binary
+*.jpg    binary
+*.jpeg   binary
+*.gif    binary
+*.axf    binary
+*.hex    binary
+*.bin    binary
+*.o      binary
+*.a      binary
+*.lib    binary
