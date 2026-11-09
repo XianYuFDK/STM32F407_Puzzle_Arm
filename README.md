@@ -464,6 +464,22 @@ python tools/puzzle1_uart_test.py --port COM7 --send   # 真正发送，会启�
 - 中断优先级：USART/DMA 使用数值优先级 6（不小于 `configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY = 5`），因为中断中调用了 `xQueueSendFromISR`；
 - 时基：`HAL` 使用 TIM4 作为 1 ms 时基（`stm32f4xx_hal_timebase_tim.c`）。
 
+### 9.4 依赖范围（精简版）
+
+仓库只保留构建实际需要的第三方源码，避免把整包 STM32CubeF4 拖进来：
+
+| 保留 | 范围 |
+|---|---|
+| `Drivers/CMSIS/Include` | Cortex-M 核心头（`core_cm4.h`、`cmsis_gcc.h` 等） |
+| `Drivers/CMSIS/Device/ST/STM32F4xx/Include` | 仅 `stm32f4xx.h`、`stm32f407xx.h`、`system_stm32f4xx.h` |
+| `Drivers/STM32F4xx_HAL_Driver/Inc` | 全部 HAL 头文件 |
+| `Drivers/STM32F4xx_HAL_Driver/Src` | 仅工程编译的 16 个模块（hal / cortex / dma / exti / flash / gpio / pwr / rcc / tim / uart） |
+| `Middlewares/.../FreeRTOS/Source` | 内核源码、`include`、CMSIS-RTOS V2、`portable/RVDS/ARM_CM4F`、`MemMang/heap_4.c` |
+
+已移除：CMSIS DSP / NN / RTOS / DAP / 旧版 Core 副本、其他 STM32F4 型号设备头、未使用的 HAL 外设源文件、FreeRTOS 的 `heap_1/2/3/5` 与 History 文档。
+
+> 若需要新增外设（如 SPI、ADC）或改用其它型号，从 **STM32CubeF4 对应版本**补回 `Src/stm32f4xx_hal_xxx.c` 或对应型号头即可，包含路径无需改动。裁剪后已逐个核对 Keil/EIDE 的 78 个工程文件与全部 `#include "..."` 引用均可解析。
+
 ---
 
 ## 10. 目录结构
@@ -476,8 +492,8 @@ python tools/puzzle1_uart_test.py --port COM7 --send   # 真正发送，会启�
 │                           calibration / debug_cli / buttons / safety / protocol
 ├─ BSP/                     板级驱动（PWM、双路 UART+DMA、磁铁、完成指示、急停输入）
 ├─ Core/                    CubeMX：main、时钟、GPIO、TIM1/8、USART1/2、中断、FreeRTOS 初始化
-├─ Drivers/                 STM32F4xx HAL + CMSIS
-├─ Middlewares/             FreeRTOS 内核与 CMSIS-RTOS V2
+├─ Drivers/                 STM32F4xx HAL（16 个源文件）+ CMSIS 核心与 F407 设备头
+├─ Middlewares/             FreeRTOS 内核、CMSIS-RTOS V2、CM4F 端口、heap_4
 ├─ MDK-ARM/                 Keil 工程（26.uvprojx、startup、RTE）
 ├─ .eide/                   EIDE 工程配置
 ├─ docs/                    设计说明、调试手册、接线文档、生成报告
@@ -515,6 +531,7 @@ python tools/puzzle1_uart_test.py --port COM7 --send   # 真正发送，会启�
 - **补偿表需持续维护**：P3/P4/P5/P6 的六点角度补偿中部分为拟合值（当前总开关关闭）。
 - **文档存在历史版本**：`docs/` 下部分说明为早期四片固定方案（H=90 mm、Zboard=7 mm、搬运 20 mm 等），**以 `App/Inc/arm_config.h` 和源码为准**；本 README 已按当前代码校对。
 - **未做 CI 编译验证**：仓库为实机工程整理，构建依赖本地 Keil / EIDE 与器件包。
+- **第三方依赖为裁剪版**：只保留当前工程用到的 HAL 模块、CMSIS 核心头与 F407 设备头；扩展外设或换型号需从 STM32CubeF4 补回对应文件（见 [9.4](#94-依赖范围精简版)）。
 - **安全边界**：软件 `STOP` 不能替代物理断电；调试大角度动作时必须先断开舵机动力。
 
 ---
@@ -532,7 +549,7 @@ python tools/puzzle1_uart_test.py --port COM7 --send   # 真正发送，会启�
 | [`docs/机械臂驱动移植与修改指南.md`](docs/机械臂驱动移植与修改指南.md) | 换板 / 换舵机 / 改参数时的移植步骤 |
 | [`docs/机械臂按键控制说明.md`](docs/机械臂按键控制说明.md) | 10 键功能与改键方法（GOTO 坐标以源码为准） |
 | [`docs/机械臂当前代码算法与控制流程分析.docx`](docs/机械臂当前代码算法与控制流程分析.docx) | 自动生成的算法与控制流程报告 |
-| [`docs/_render_arm_report/`](docs/_render_arm_report) | 上述报告的 PDF 与逐页 PNG |
+| [`docs/_render_arm_report/机械臂当前代码算法与控制流程分析.pdf`](docs/_render_arm_report/机械臂当前代码算法与控制流程分析.pdf) | 上述报告的 PDF 版（逐页 PNG 未入库） |
 
 ---
 
@@ -540,9 +557,9 @@ python tools/puzzle1_uart_test.py --port COM7 --send   # 真正发送，会启�
 
 | 组件 | 版权 / 许可 | 位置 |
 |---|---|---|
-| STM32F4xx HAL Driver | BSD-3-Clause，© STMicroelectronics | `Drivers/STM32F4xx_HAL_Driver` |
-| CMSIS | Apache-2.0，© ARM | `Drivers/CMSIS` |
-| FreeRTOS Kernel | MIT，© Amazon.com / Real Time Engineers | `Middlewares/Third_Party/FreeRTOS` |
+| STM32F4xx HAL Driver | BSD-3-Clause，© STMicroelectronics | `Drivers/STM32F4xx_HAL_Driver`（仅保留 16 个使用中的源文件） |
+| CMSIS | Apache-2.0，© ARM | `Drivers/CMSIS`（核心头 + F407 设备头） |
+| FreeRTOS Kernel | MIT，© Amazon.com / Real Time Engineers | `Middlewares/Third_Party/FreeRTOS`（含 LICENSE） |
 | STM32CubeMX 生成代码 | 随 ST 许可 | `Core/`、`26.ioc` |
 
 业务层代码（`App/`、`BSP/`、`tools/`）为本项目原创，随仓库一并公开用于学习与复现。
